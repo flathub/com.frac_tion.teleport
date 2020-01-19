@@ -1,22 +1,18 @@
 {
   "app-id": "com.frac_tion.teleport",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.30",
+  "runtime-version": "3.34",
   "sdk": "org.gnome.Sdk",
   "command": "teleport",
   "finish-args": [
     "--share=network",
     "--share=ipc",
-    "--socket=x11",
+    "--socket=fallback-x11",
     "--socket=wayland",
     "--system-talk-name=org.freedesktop.Avahi",
     "--talk-name=org.freedesktop.FileManager1",
     "--filesystem=home",
-    "--env=GSETTINGS_SCHEMA_DIR=/app/share/glib-2.0/schemas",
-    "--filesystem=xdg-run/dconf",
-    "--filesystem=~/.config/dconf:ro",
-    "--talk-name=ca.desrt.dconf",
-    "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    "--metadata=X-DConf=migrate-path=/com/frac_tion/teleport/"
   ],
   "cleanup": ["/include", "/lib/pkgconfig",
     "/share/pkgconfig", "/share/aclocal",
@@ -24,6 +20,7 @@
     "/share/vala",
     "*.la", "*.a"],
     "modules": [
+      "shared-modules/intltool/intltool-0.51.json",
       {
         "name": "avahi",
         "cleanup": [ "/bin" ],
@@ -51,11 +48,16 @@
       },
       {
         "name": "teleport",
+        "buildsystem": "meson",
         "sources": [
           {
             "type": "git",
             "tag": "0.0.1",
             "url": "https://gitlab.gnome.org/jsparber/teleport.git"
+          },
+          {
+            "type": "patch",
+            "path": "appdata_oars.patch"
           }
         ]
       }
