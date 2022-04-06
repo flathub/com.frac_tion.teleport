@@ -57,6 +57,10 @@
           },
           {
             "type": "patch",
+            "path": "appdata_remove_mvp.patch"
+          },
+          {
+            "type": "patch",
             "path": "appdata_oars.patch"
           }
         ]
