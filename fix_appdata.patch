@@ -1,0 +1,77 @@
+diff --git a/data/com.frac_tion.teleport.appdata.xml.in b/data/com.frac_tion.teleport.appdata.xml.in
+index c155015..11c571c 100644
+--- a/data/com.frac_tion.teleport.appdata.xml.in
++++ b/data/com.frac_tion.teleport.appdata.xml.in
+@@ -26,29 +26,28 @@
+     </screenshot>
+   </screenshots>
+ 
+-  <url type="homepage">https://github.com/frac-tion/teleport/</url>
+-  <url type="bugtracker">https://github.com/frac-tion/teleport/</url>
+-  <project_group>GNOME</project_group>
++  <url type="homepage">https://gitlab.gnome.org/jsparber/teleport</url>
++  <url type="bugtracker">https://gitlab.gnome.org/jsparber/teleport/-/issues</url>
++  <url type="vcs-browser">https://gitlab.gnome.org/jsparber/teleport</url>
++
++  <developer_name>Julian Sparber</developer_name>
++  <developer id="net.sparber">
++    <name>Julian Sparber</name>
++  </developer>
+ 
+   <kudos>
+     <kudo>AppMenu</kudo>
+     <kudo>HiDpiIcon</kudo>
+     <kudo>ModernToolkit</kudo>
+     <kudo>Notifications</kudo>
+   </kudos>
++  <content_rating type="oars-1.1" />
+ 
+   <update_contact>julian@sparber.net</update_contact>
+   <translation type="gettext">teleport</translation>
++  <launchable type="desktop-id">com.frac_tion.teleport.desktop</launchable>
+ 
+   <releases>
+-    <release version="MVP" date="2017-10-29">
+-      <description>
+-        <p>
+-          This basic initial version sends files chose via the file chooser or
+-          drag and drop. The Downloads directory can be set from the menu.
+-        </p>
+-      </description>
+-    </release>
+     <release version="0.0.1" date="2018-10-28">
+       <description>
+         <p>
+diff --git a/data/meson.build b/data/meson.build
+index 94b8ee5..c1791b6 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -1,22 +1,19 @@
+-desktop = 'com.frac_tion.teleport.desktop'
+-
+-i18n.merge_file(
+-  desktop,
++desktop_file = i18n.merge_file(
++  input: 'com.frac_tion.teleport.desktop.in',
++  output: 'com.frac_tion.teleport.desktop',
++  po_dir: join_paths(meson.project_source_root(), 'po'),
+   type: 'desktop',
+-  input: desktop + '.in',
+-  output: desktop,
+-  po_dir: po_dir,
+   install: true,
+-  install_dir: join_paths(teleport_datadir, 'applications')
++  install_dir: join_paths(get_option('datadir'), 'applications')
+ )
+ 
+ # Appdata file.
+ appdata_file = i18n.merge_file(
+   input: 'com.frac_tion.teleport.appdata.xml.in',
+   output: 'com.frac_tion.teleport.appdata.xml',
+   po_dir: po_dir,
+   install: true,
+-  install_dir: join_paths(get_option('datadir'), 'appdata'),
++  install_dir: join_paths(get_option('datadir'), 'metainfo'),
+ )
+ 
+ appstream_util = find_program('appstream-util', required: false)

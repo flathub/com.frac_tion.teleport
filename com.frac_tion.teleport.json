@@ -1,7 +1,7 @@
 {
   "app-id": "com.frac_tion.teleport",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "42",
+  "runtime-version": "46",
   "sdk": "org.gnome.Sdk",
   "command": "teleport",
   "finish-args": [
@@ -14,13 +14,21 @@
     "--filesystem=home",
     "--metadata=X-DConf=migrate-path=/com/frac_tion/teleport/"
   ],
-  "cleanup": ["/include", "/lib/pkgconfig",
-    "/share/pkgconfig", "/share/aclocal",
-    "/man", "/share/man", "/share/gtk-doc",
-    "/share/vala",
-    "*.la", "*.a"],
+  "cleanup": [
+      "/include",
+      "/lib/pkgconfig",
+      "/man",
+      "/share/aclocal",
+      "/share/gtk-doc",
+      "/share/man",
+      "/share/pkgconfig",
+      "/share/vala",
+      "*.la",
+      "*.a"
+    ],
     "modules": [
       "shared-modules/intltool/intltool-0.51.json",
+      "shared-modules/libsoup/libsoup-2.4.json",
       {
         "name": "avahi",
         "cleanup": [ "/bin" ],
@@ -57,11 +65,7 @@
           },
           {
             "type": "patch",
-            "path": "appdata_remove_mvp.patch"
-          },
-          {
-            "type": "patch",
-            "path": "appdata_oars.patch"
+            "path": "fix_appdata.patch"
           }
         ]
       }
